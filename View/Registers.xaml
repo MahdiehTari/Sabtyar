@@ -1,0 +1,138 @@
+﻿<UserControl x:Class="DataGrid.View.Registers"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DataGrid.View"
+              xmlns:vm="clr-namespace:DataGrid.ViewModel"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d" 
+             Height="720"  Width="864" Background="#EFF2F7">
+    <UserControl.DataContext>
+        <vm:RegisterVM/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid Grid.Column="2" Margin="25,20,25,20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="29*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="249*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <!--Search Textbox-->
+            <Grid Width="300" HorizontalAlignment="Left">
+                <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
+                           Panel.ZIndex="1" Text="Search here ..."
+                           Visibility="{Binding Converter={StaticResource BoolToVis}, ElementName=textBoxSearch}" />
+
+                <TextBox x:Name="textBoxSearch" Style="{StaticResource searchTextbox}"/>
+
+                <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center" Margin="0 0 15 0" Foreground="#B0B9C6" HorizontalAlignment="Right" />
+            </Grid>
+
+            <!--Top Buttons-->
+            <Button Style="{StaticResource topButton}" Margin="0 0 20 0" Background="#dcdcdc">
+                <Icon:PackIconMaterial Kind="Cog"/>
+            </Button>
+
+            <Button Style="{StaticResource topButton}" Margin="0 0 55 0">
+                <Icon:PackIconMaterial Kind="Bell"/>
+            </Button>
+
+            <!--Page Title-->
+            <TextBlock Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="0 20 0 0" Foreground="#121518" HorizontalAlignment="Right" FontFamily="Mitra"><Run FlowDirection="RightToLeft" Language="fa-ir" Text="ثبت اطلاعات خرید"/></TextBlock>
+
+            <!--Add Button-->
+            <Button Style="{StaticResource addButton}"  Margin="0,28,670,10" Grid.Row="1" Click="Button_Click" Width="150">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontFamily="Roya" FontSize="20" FontWeight="Bold"><Run FlowDirection="RightToLeft" Language="fa-ir" Text="ثبت "/></TextBlock>
+                </StackPanel>
+            </Button>
+
+            <!--Seprator-->
+            <Separator Height="1" Grid.Row="3" Background="#DAE2EA" Margin="0 -1 0 10"/>
+
+            <!--Counter Title-->
+
+            <!--Filter Textbox-->
+            <Grid Width="530" HorizontalAlignment="Center" Grid.Row="3" Margin="0,10,0,10" Grid.RowSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="hinttxt" Margin="380,40,-106,0" VerticalAlignment="Top" Foreground="#B0B9C6" IsHitTestVisible="False"
+                           Panel.ZIndex="1" Text="نوع سرویس را انتخاب کنبد"
+                           Visibility="{Binding Converter={StaticResource BoolToVis}, ElementName=textBoxFilter}" Height="26" FontSize="16" FontFamily="Roya" />
+
+                <ComboBox FlowDirection="RightToLeft"  x:Name="service"  VerticalAlignment="Top" Height="38" Margin="230,40,0,0" FontFamily="Roya"  FontSize="16" Foreground="#FF4E4D4D" SelectionChanged="service_SelectionChanged">
+                    <ComboBoxItem Content="سرور مجازی"/>
+                    <ComboBoxItem Content="دیتاسنتر"/>
+
+
+                </ComboBox>
+
+                <TextBlock Margin="-102,-110,524,0" VerticalAlignment="Top" Foreground="#B0B9C6" IsHitTestVisible="False"
+                        Panel.ZIndex="1" Text="Search in Members ..."
+                        Visibility="{Binding Converter={StaticResource BoolToVis}, ElementName=textBoxFilter}" Height="29" RenderTransformOrigin="0.5,0.5" >
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="-1"/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+                <ComboBox FlowDirection="RightToLeft"  x:Name="template"   VerticalAlignment="Top" Height="38" Margin="230,107,0,0" FontFamily="Roya"  FontSize="16" Foreground="#FF4E4D4D" SelectionChanged="template_SelectionChanged" >
+
+                </ComboBox>
+                <TextBlock x:Name="hinttxt_Copy" Margin="305,113,-30,0" VerticalAlignment="Top" Foreground="#B0B9C6" IsHitTestVisible="False"
+                        Panel.ZIndex="1" Text="...قالب مورد نظر خود را انتخاب کنید" Height="26" FontSize="16" FontFamily="Roya" Visibility="Hidden" />
+
+            </Grid>
+            <TextBox x:Name="textBoxSearch_Copy" Style="{StaticResource searchTextbox}" Margin="498,61,178,0" Grid.Row="5" VerticalAlignment="Top" Height="28"/>
+            <TextBox x:Name="textBoxSearch_Copy1" Style="{StaticResource searchTextbox}" Margin="498,108,178,0" Grid.Row="5" VerticalAlignment="Top" Height="28"/>
+            <TextBox x:Name="textBoxSearch_Copy2" Style="{StaticResource searchTextbox}" Margin="11,272,159,0" Grid.Row="5" VerticalAlignment="Top" Height="90"/>
+            <TextBlock x:Name="hinttxt_Copy1" Margin="667,58,20,0" VerticalAlignment="Top" IsHitTestVisible="False"
+                    Panel.ZIndex="1"
+                    Visibility="{Binding Converter={StaticResource BoolToVis}, ElementName=textBoxFilter}" Height="26" FontSize="16" FontFamily="Roya" Grid.Row="5" Foreground="#FF5D5555" ><Run FlowDirection="RightToLeft" Language="fa-ir" Text="درخواست دهنده"/></TextBlock>
+            <TextBlock x:Name="hinttxt_Copy2" Margin="667,272,20,0" VerticalAlignment="Top" IsHitTestVisible="False"
+                    Panel.ZIndex="1"
+                    Visibility="{Binding Converter={StaticResource BoolToVis}, ElementName=textBoxFilter}" Height="26" FontSize="16" FontFamily="Roya" Grid.Row="5" Foreground="#FF5D5555" ><Run FlowDirection="RightToLeft" Language="fa-ir" Text="توضیحات"/></TextBlock>
+            <TextBlock x:Name="hinttxt_Copy3" Margin="667,110,20,0" VerticalAlignment="Top" IsHitTestVisible="False"
+                    Panel.ZIndex="1"
+                    Visibility="{Binding Converter={StaticResource BoolToVis}, ElementName=textBoxFilter}" Height="26" FontSize="16" FontFamily="Roya" Grid.Row="5" Foreground="#FF5D5555" ><Run FlowDirection="RightToLeft" Language="fa-ir" Text="شماره حساب"/></TextBlock>
+            <TextBox x:Name="textBoxSearch_Copy3" Style="{StaticResource searchTextbox}" Margin="498,156,178,0" Grid.Row="5" VerticalAlignment="Top" Height="28"/>
+            <TextBlock x:Name="hinttxt_Copy4" Margin="667,158,20,0" VerticalAlignment="Top" IsHitTestVisible="False"
+                    Panel.ZIndex="1"
+                    Visibility="{Binding Converter={StaticResource BoolToVis}, ElementName=textBoxFilter}" Height="26" FontSize="16" FontFamily="Roya" Grid.Row="5" Foreground="#FF5D5555" ><Run FlowDirection="RightToLeft" Language="fa-ir" Text="شماره شبا"/></TextBlock>
+            <Button Style="{StaticResource addButton}"  Margin="0,221,627,140" Grid.Row="5" Width="37">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock><Run FlowDirection="RightToLeft" Language="fa-ir" Text="+"/></TextBlock>
+                </StackPanel>
+            </Button>
+            <TextBlock x:Name="hinttxt_Copy5" Margin="219,225,468,0" VerticalAlignment="Top" IsHitTestVisible="False"
+                    Panel.ZIndex="1"
+                    Visibility="{Binding Converter={StaticResource BoolToVis}, ElementName=textBoxFilter}" Height="26" FontSize="16" FontFamily="Roya" Grid.Row="5" Foreground="#FF5D5555" ><Run FlowDirection="RightToLeft" Language="fa-ir" Text="افزودن کالا"/><LineBreak/><Run FlowDirection="RightToLeft" Language="fa-ir"/></TextBlock>
+            <TextBox x:Name="textBoxSearch_Copy4" Style="{StaticResource searchTextbox}" Margin="150,75,385,0" Grid.Row="5" VerticalAlignment="Top" Height="28"/>
+            <TextBox x:Name="textBoxSearch_Copy5" Style="{StaticResource searchTextbox}" Margin="49,75,680,0" Grid.Row="5" VerticalAlignment="Top" Height="28"/>
+            <TextBox x:Name="textBoxSearch_Copy6" Style="{StaticResource searchTextbox}" Margin="10,75,776,0" Grid.Row="5" VerticalAlignment="Top" Height="28"/>
+            <TextBlock x:Name="hinttxt_Copy6" Margin="279,48,407,0" VerticalAlignment="Top" IsHitTestVisible="False"
+                    Panel.ZIndex="1"
+                    Visibility="{Binding Converter={StaticResource BoolToVis}, ElementName=textBoxFilter}" Height="26" FontSize="16" FontFamily="Roya" Grid.Row="5" Foreground="#FF5D5555" ><Run FlowDirection="RightToLeft" Language="fa-ir" Text="نام کالا"/></TextBlock>
+            <TextBlock x:Name="hinttxt_Copy7" Margin="74,49,705,0" VerticalAlignment="Top" IsHitTestVisible="False"
+                    Panel.ZIndex="1"
+                    Visibility="{Binding Converter={StaticResource BoolToVis}, ElementName=textBoxFilter}" Height="26" FontSize="16" FontFamily="Roya" Grid.Row="5" Foreground="#FF5D5555" ><Run FlowDirection="RightToLeft" Language="fa-ir" Text="قیمت"/></TextBlock>
+            <TextBlock x:Name="hinttxt_Copy8" Margin="11,48,768,0" VerticalAlignment="Top" IsHitTestVisible="False"
+                    Panel.ZIndex="1"
+                    Visibility="{Binding Converter={StaticResource BoolToVis}, ElementName=textBoxFilter}" Height="26" FontSize="16" FontFamily="Roya" Grid.Row="5" Foreground="#FF5D5555" ><Run FlowDirection="RightToLeft" Language="fa-ir" Text="تعداد"/></TextBlock>
+        </Grid>
+
+    </Grid>
+</UserControl>

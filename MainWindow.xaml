@@ -1,0 +1,93 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodel="clr-namespace:DataGrid.ViewModel" xmlns:view="clr-namespace:DataGrid.View" mc:Ignorable="av" x:Class="DataGrid.MainWindow"
+        Height="720" Width="1080" WindowStartupLocation="CenterScreen" AllowsTransparency="True"
+        Background="Transparent" WindowStyle="None">
+    <Window.DataContext>
+        <viewmodel:NavigationVM/>
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewmodel:RegisterVM}">
+            <view:Registers />
+        </DataTemplate>
+    </Window.Resources>
+
+    <Border CornerRadius="30" Background="White" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Row="0" Background="#FF623ED0" CornerRadius="0 0 0 0" />
+            <ContentControl Grid.Column="1" x:Name="Pages"  Content="{Binding CurrentView}" Margin="0,32,10,10" Background="White"/>
+
+            <!--Left Menu-->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!--Menu Icon-->
+                <Button Style="{StaticResource topButton}" HorizontalAlignment="Left" Margin="20 28 0 35">
+                    <Icon:PackIconMaterial Kind="Menu" Width="15" Height="15" />
+                </Button>
+                <Border Grid.Row="0" Background="#FF623ED0" CornerRadius="0 0 0 0" />
+                <Border Grid.Row="1" Background="#623ED0" CornerRadius="0 0 0 0">
+                    <DockPanel>
+                        <!--Menu Logo-->
+                        <Border Width="80" Height="80" Padding="3" Background="White" CornerRadius="100" DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="20 -30 0 0"/>
+
+                        <!--Menu Titles-->
+                        <TextBlock Foreground="White" FontSize="22" FontWeight="SemiBold" DockPanel.Dock="Top" Margin="5 25 0 10" TextAlignment="Center"><Run FlowDirection="RightToLeft" Language="fa-ir" Text="ثبتــــــیــــار"/></TextBlock>
+                        <TextBlock Text="Register Form" Foreground="#D0BFFF" FontSize="10" FontWeight="SemiBold" DockPanel.Dock="Top" TextAlignment="Center"/>
+
+                        <!--Menu Seprator-->
+                        <Separator Margin="25" Background="#7E5FDC" DockPanel.Dock="Top" Height="0.8"/>
+
+                        <!--Menu Buttons-->
+                        <StackPanel DockPanel.Dock="Top" >
+                            <Button Style="{StaticResource menuButton}" Command="{Binding RegisterCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="HomeVariant" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock FontFamily="Roya" FontSize="20"><Run FlowDirection="RightToLeft" Language="fa-ir" Text="ثبت داده ها"/></TextBlock>
+                                </StackPanel>
+                            </Button>
+
+                            <Button Style="{StaticResource menuButton}" >
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="CalendarClock" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock FontFamily="Roya" FontSize="20"><Run FlowDirection="RightToLeft" Language="fa-ir" Text="نمایش ثبتی ها"/></TextBlock>
+                                </StackPanel>
+                            </Button>
+
+                            <Button Style="{StaticResource menuButton}" Background="#7B5CD6" Foreground="White">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="AccountMultipleOutline" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock><Run FlowDirection="RightToLeft" Language="fa-ir"/></TextBlock>
+                                </StackPanel>
+                            </Button>
+
+                        </StackPanel>
+
+                        <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Margin="15 0 15 20" Click="Button_Click_1">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Exite"/>
+                            </StackPanel>
+                        </Button>
+
+                    </DockPanel>
+                </Border>
+
+            </Grid>
+
+            <!--Main Section-->
+
+
+        </Grid>
+    </Border>
+
+</Window>

@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Platforms>AnyCPU;x86;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\p1.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Cake.Powershell" Version="2.0.0" />
+    <PackageReference Include="Cake.Sitecore" Version="1.0.27" />
+    <PackageReference Include="Dapplo.ActiveDirectory" Version="0.3.16" />
+    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />
+    <PackageReference Include="MGSoftSystem.Management.Automation" Version="1.0.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.3.0" />
+    <PackageReference Include="Microsoft.PowerShell.4.ReferenceAssemblies" Version="1.0.0" />
+    <PackageReference Include="Microsoft.PowerShell.Native" Version="7.3.2" />
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.3.6" />
+    <PackageReference Include="System.Data.OleDb" Version="6.0.0" />
+    <PackageReference Include="System.DirectoryServices" Version="7.0.1" />
+    <PackageReference Include="System.DirectoryServices.AccountManagement" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\p1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>
