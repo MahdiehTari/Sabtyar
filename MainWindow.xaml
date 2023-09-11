@@ -21,7 +21,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Border Grid.Row="0" Background="#FF623ED0" CornerRadius="0 0 0 0" />
-            <ContentControl Grid.Column="1" x:Name="Pages"  Content="{Binding CurrentView}" Margin="0,32,10,10" Background="White"/>
+            <ContentControl Grid.Column="1" x:Name="Pages"  Content="{Binding CurrentView}" Margin="0,42,10,0" Background="White"/>
 
             <!--Left Menu-->
             <Grid>

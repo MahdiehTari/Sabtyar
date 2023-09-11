@@ -50,7 +50,7 @@
             <TextBlock Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="0 20 0 0" Foreground="#121518" HorizontalAlignment="Right" FontFamily="Mitra"><Run FlowDirection="RightToLeft" Language="fa-ir" Text="ثبت اطلاعات خرید"/></TextBlock>
 
             <!--Add Button-->
-            <Button Style="{StaticResource addButton}"  Margin="0,28,670,10" Grid.Row="1" Click="Button_Click" Width="150">
+            <Button Style="{StaticResource addButton}"  Margin="0,27,664,11" Grid.Row="1" Click="Button_Click" Width="150">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock FontFamily="Roya" FontSize="20" FontWeight="Bold"><Run FlowDirection="RightToLeft" Language="fa-ir" Text="ثبت "/></TextBlock>
                 </StackPanel>
@@ -63,14 +63,25 @@
 
             <!--Filter Textbox-->
             <Grid Width="530" HorizontalAlignment="Center" Grid.Row="3" Margin="0,10,0,10" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="126*"/>
+                    <RowDefinition Height="13*"/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBlock x:Name="hinttxt" Margin="380,40,-106,0" VerticalAlignment="Top" Foreground="#B0B9C6" IsHitTestVisible="False"
+                <ListBox  x:Name="backitem"  HorizontalAlignment="Left" Margin="-155,53,0,-256" Grid.RowSpan="2" Width="420" d:ItemsSource="{d:SampleData ItemCount=5}" Background="#FF6741D9" Visibility="Hidden">
+                    <ListBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="30"/>
+                        </Style>
+                    </ListBox.Resources>
+                </ListBox>
+                <TextBlock x:Name="hinttxt" Margin="530,40,-256,0" VerticalAlignment="Top" Foreground="#B0B9C6" IsHitTestVisible="False"
                            Panel.ZIndex="1" Text="نوع سرویس را انتخاب کنبد"
                            Visibility="{Binding Converter={StaticResource BoolToVis}, ElementName=textBoxFilter}" Height="26" FontSize="16" FontFamily="Roya" />
 
-                <ComboBox FlowDirection="RightToLeft"  x:Name="service"  VerticalAlignment="Top" Height="38" Margin="230,40,0,0" FontFamily="Roya"  FontSize="16" Foreground="#FF4E4D4D" SelectionChanged="service_SelectionChanged">
+                <ComboBox FlowDirection="RightToLeft"  x:Name="service"  VerticalAlignment="Top" Height="38" Margin="380,37,-150,0" FontFamily="Roya"  FontSize="16" Foreground="#FF4E4D4D" SelectionChanged="service_SelectionChanged">
                     <ComboBoxItem Content="سرور مجازی"/>
                     <ComboBoxItem Content="دیتاسنتر"/>
 
@@ -89,49 +100,73 @@
                         </TransformGroup>
                     </TextBlock.RenderTransform>
                 </TextBlock>
-                <ComboBox FlowDirection="RightToLeft"  x:Name="template"   VerticalAlignment="Top" Height="38" Margin="230,107,0,0" FontFamily="Roya"  FontSize="16" Foreground="#FF4E4D4D" SelectionChanged="template_SelectionChanged" >
-
-                </ComboBox>
+                <ComboBox FlowDirection="RightToLeft"  x:Name="template"   VerticalAlignment="Top" Height="38" Margin="380,88,-150,0" FontFamily="Roya"  FontSize="16" Foreground="#FF4E4D4D" SelectionChanged="template_SelectionChanged" Grid.RowSpan="2" />
                 <TextBlock x:Name="hinttxt_Copy" Margin="305,113,-30,0" VerticalAlignment="Top" Foreground="#B0B9C6" IsHitTestVisible="False"
-                        Panel.ZIndex="1" Text="...قالب مورد نظر خود را انتخاب کنید" Height="26" FontSize="16" FontFamily="Roya" Visibility="Hidden" />
+                        Panel.ZIndex="1" Text="...قالب مورد نظر خود را انتخاب کنید" Height="26" FontSize="16" FontFamily="Roya" Visibility="Hidden" Grid.RowSpan="2" />
 
             </Grid>
-            <TextBox x:Name="textBoxSearch_Copy" Style="{StaticResource searchTextbox}" Margin="498,61,178,0" Grid.Row="5" VerticalAlignment="Top" Height="28"/>
-            <TextBox x:Name="textBoxSearch_Copy1" Style="{StaticResource searchTextbox}" Margin="498,108,178,0" Grid.Row="5" VerticalAlignment="Top" Height="28"/>
+            <TextBox x:Name="textBoxSearch_Copy" Style="{StaticResource searchTextbox}" Margin="522,24,109,0" Grid.Row="4" VerticalAlignment="Top" Height="44" Grid.RowSpan="2"/>
+            <TextBox x:Name="اhes" Style="{StaticResource searchTextbox}" Margin="454,39,107,0" Grid.Row="5" VerticalAlignment="Top" Height="43" Foreground="#FF141515"/>
             <TextBox x:Name="textBoxSearch_Copy2" Style="{StaticResource searchTextbox}" Margin="11,272,159,0" Grid.Row="5" VerticalAlignment="Top" Height="90"/>
-            <TextBlock x:Name="hinttxt_Copy1" Margin="667,58,20,0" VerticalAlignment="Top" IsHitTestVisible="False"
+            <TextBlock x:Name="hinttxt_Copy1" Margin="712,0,-25,0" VerticalAlignment="Top" IsHitTestVisible="False"
                     Panel.ZIndex="1"
                     Visibility="{Binding Converter={StaticResource BoolToVis}, ElementName=textBoxFilter}" Height="26" FontSize="16" FontFamily="Roya" Grid.Row="5" Foreground="#FF5D5555" ><Run FlowDirection="RightToLeft" Language="fa-ir" Text="درخواست دهنده"/></TextBlock>
             <TextBlock x:Name="hinttxt_Copy2" Margin="667,272,20,0" VerticalAlignment="Top" IsHitTestVisible="False"
                     Panel.ZIndex="1"
                     Visibility="{Binding Converter={StaticResource BoolToVis}, ElementName=textBoxFilter}" Height="26" FontSize="16" FontFamily="Roya" Grid.Row="5" Foreground="#FF5D5555" ><Run FlowDirection="RightToLeft" Language="fa-ir" Text="توضیحات"/></TextBlock>
-            <TextBlock x:Name="hinttxt_Copy3" Margin="667,110,20,0" VerticalAlignment="Top" IsHitTestVisible="False"
+            <TextBlock x:Name="hinttxt_Copy3" Margin="716,39,-28,0" VerticalAlignment="Top" IsHitTestVisible="False"
                     Panel.ZIndex="1"
                     Visibility="{Binding Converter={StaticResource BoolToVis}, ElementName=textBoxFilter}" Height="26" FontSize="16" FontFamily="Roya" Grid.Row="5" Foreground="#FF5D5555" ><Run FlowDirection="RightToLeft" Language="fa-ir" Text="شماره حساب"/></TextBlock>
-            <TextBox x:Name="textBoxSearch_Copy3" Style="{StaticResource searchTextbox}" Margin="498,156,178,0" Grid.Row="5" VerticalAlignment="Top" Height="28"/>
-            <TextBlock x:Name="hinttxt_Copy4" Margin="667,158,20,0" VerticalAlignment="Top" IsHitTestVisible="False"
+            <TextBox x:Name="shab" Style="{StaticResource searchTextbox}" Margin="452,87,109,0" Grid.Row="5" VerticalAlignment="Top" Height="44" Foreground="#FF111112"/>
+            <TextBlock x:Name="hinttxt_Copy4" Margin="716,95,-29,0" VerticalAlignment="Top" IsHitTestVisible="False"
                     Panel.ZIndex="1"
                     Visibility="{Binding Converter={StaticResource BoolToVis}, ElementName=textBoxFilter}" Height="26" FontSize="16" FontFamily="Roya" Grid.Row="5" Foreground="#FF5D5555" ><Run FlowDirection="RightToLeft" Language="fa-ir" Text="شماره شبا"/></TextBlock>
-            <Button Style="{StaticResource addButton}"  Margin="0,221,627,140" Grid.Row="5" Width="37">
+            <Button x:Name="add" Style="{StaticResource addButton}"  Margin="0,10,611,47" Grid.Row="3" Width="37" RenderTransformOrigin="1.216,-0.182" Click="Button_Click_2">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock><Run FlowDirection="RightToLeft" Language="fa-ir" Text="+"/></TextBlock>
                 </StackPanel>
             </Button>
-            <TextBlock x:Name="hinttxt_Copy5" Margin="219,225,468,0" VerticalAlignment="Top" IsHitTestVisible="False"
+
+            <TextBlock x:Name="hinttxt_Copy5" Margin="86,21,664,0" VerticalAlignment="Top" IsHitTestVisible="False"
                     Panel.ZIndex="1"
-                    Visibility="{Binding Converter={StaticResource BoolToVis}, ElementName=textBoxFilter}" Height="26" FontSize="16" FontFamily="Roya" Grid.Row="5" Foreground="#FF5D5555" ><Run FlowDirection="RightToLeft" Language="fa-ir" Text="افزودن کالا"/><LineBreak/><Run FlowDirection="RightToLeft" Language="fa-ir"/></TextBlock>
-            <TextBox x:Name="textBoxSearch_Copy4" Style="{StaticResource searchTextbox}" Margin="150,75,385,0" Grid.Row="5" VerticalAlignment="Top" Height="28"/>
-            <TextBox x:Name="textBoxSearch_Copy5" Style="{StaticResource searchTextbox}" Margin="49,75,680,0" Grid.Row="5" VerticalAlignment="Top" Height="28"/>
-            <TextBox x:Name="textBoxSearch_Copy6" Style="{StaticResource searchTextbox}" Margin="10,75,776,0" Grid.Row="5" VerticalAlignment="Top" Height="28"/>
-            <TextBlock x:Name="hinttxt_Copy6" Margin="279,48,407,0" VerticalAlignment="Top" IsHitTestVisible="False"
-                    Panel.ZIndex="1"
-                    Visibility="{Binding Converter={StaticResource BoolToVis}, ElementName=textBoxFilter}" Height="26" FontSize="16" FontFamily="Roya" Grid.Row="5" Foreground="#FF5D5555" ><Run FlowDirection="RightToLeft" Language="fa-ir" Text="نام کالا"/></TextBlock>
-            <TextBlock x:Name="hinttxt_Copy7" Margin="74,49,705,0" VerticalAlignment="Top" IsHitTestVisible="False"
-                    Panel.ZIndex="1"
-                    Visibility="{Binding Converter={StaticResource BoolToVis}, ElementName=textBoxFilter}" Height="26" FontSize="16" FontFamily="Roya" Grid.Row="5" Foreground="#FF5D5555" ><Run FlowDirection="RightToLeft" Language="fa-ir" Text="قیمت"/></TextBlock>
-            <TextBlock x:Name="hinttxt_Copy8" Margin="11,48,768,0" VerticalAlignment="Top" IsHitTestVisible="False"
-                    Panel.ZIndex="1"
-                    Visibility="{Binding Converter={StaticResource BoolToVis}, ElementName=textBoxFilter}" Height="26" FontSize="16" FontFamily="Roya" Grid.Row="5" Foreground="#FF5D5555" ><Run FlowDirection="RightToLeft" Language="fa-ir" Text="تعداد"/></TextBlock>
+                    Visibility="{Binding Converter={StaticResource BoolToVis}, ElementName=textBoxFilter}" Height="26" FontSize="16" FontFamily="Roya" Grid.Row="3" Foreground="#FF5D5555" ><Run FlowDirection="RightToLeft" Language="fa-ir" Text="افزودن کالا"/><LineBreak/><Run FlowDirection="RightToLeft" Language="fa-ir"/></TextBlock>
+
+            <TextBlock x:Name="proname" Margin="269,0,417,0" VerticalAlignment="Center" IsHitTestVisible="False"
+                    Panel.ZIndex="1" Height="26" FontSize="16" FontFamily="Roya" Grid.Row="3" Foreground="White" Grid.RowSpan="2" Visibility="Hidden" ><Run FlowDirection="RightToLeft" Language="fa-ir" Text="نام کالا"/></TextBlock>
+
+            <Button Style="{StaticResource addButton}"  Margin="0,29,496,9" Grid.Row="1" Click="Button_Click" Width="150">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontFamily="Roya" FontSize="20" FontWeight="Bold" Width="113"><Run FlowDirection="RightToLeft" Language="fa-ir" Text="ایجاد برگه درخواست "/></TextBlock>
+                </StackPanel>
+            </Button>
+            <TextBox x:Name="product1" Style="{StaticResource searchTextbox}" Margin="130,94,405,0" Grid.Row="3" Height="36" Foreground="#FF181919" Grid.RowSpan="2" VerticalAlignment="Top" Visibility="Hidden" />
+            <TextBox x:Name="product2"  Style="{StaticResource searchTextbox}" Margin="128,13,407,0" Grid.Row="4" VerticalAlignment="Top" Height="35" Foreground="#FF181919" Grid.RowSpan="2" Visibility="Hidden" />
+            <TextBox x:Name="product3" Style="{StaticResource searchTextbox}" Margin="128,22,408,0" Grid.Row="5" VerticalAlignment="Top" Height="35" Foreground="#FF181919" Visibility="Hidden"/>
+            <TextBox x:Name="product4" Style="{StaticResource searchTextbox}" Margin="128,66,407,0" Grid.Row="5" VerticalAlignment="Top" Height="35" Foreground="#FF181919" Visibility="Hidden" />
+            <TextBox x:Name="product5" Style="{StaticResource searchTextbox}" Margin="128,110,407,0" Grid.Row="5" VerticalAlignment="Top" Height="35" Foreground="#FF181919" Visibility="Hidden" />
+            <TextBox x:Name="product6" Style="{StaticResource searchTextbox}" Margin="127,152,407,0" Grid.Row="5" VerticalAlignment="Top" Height="35" RenderTransformOrigin="0.487,2.409" Foreground="#FF181919" Visibility="Hidden" />
+            <TextBox x:Name="product7" Style="{StaticResource searchTextbox}" Margin="128,195,406,0" Grid.Row="5" VerticalAlignment="Top" Height="35" RenderTransformOrigin="0.487,2.409" Foreground="#FF181919" Visibility="Hidden" />
+            <TextBox x:Name="p1" Style="{StaticResource searchTextbox}" Margin="27,94,686,0" Grid.Row="3" Height="36" Foreground="#FF262729" Grid.RowSpan="2" VerticalAlignment="Top" Visibility="Hidden" />
+            <TextBox x:Name="p3" Style="{StaticResource searchTextbox}" Margin="27,24,686,0" Grid.Row="5" VerticalAlignment="Top" Height="35" RenderTransformOrigin="0.506,1.568" Foreground="#FF262729" Visibility="Hidden" />
+            <TextBox x:Name="p2" Style="{StaticResource searchTextbox}" Margin="26,12,686,0" Grid.Row="4" VerticalAlignment="Top" Height="35" RenderTransformOrigin="0.471,1.889" Foreground="#FF262729" Grid.RowSpan="2" Visibility="Hidden" />
+            <TextBox x:Name="p4" Style="{StaticResource searchTextbox}" Margin="27,65,686,0" Grid.Row="5" VerticalAlignment="Top" Height="35" Foreground="#FF262729" Visibility="Hidden" />
+            <TextBox x:Name="p5" Style="{StaticResource searchTextbox}" Margin="27,109,686,0" Grid.Row="5" VerticalAlignment="Top" Height="35" Foreground="#FF262729" Visibility="Hidden"/>
+            <TextBox x:Name="p6" Style="{StaticResource searchTextbox}" Margin="27,150,686,0" Grid.Row="5" VerticalAlignment="Top" Height="36" Foreground="#FF262729" Visibility="Hidden" />
+            <TextBox x:Name="p7" Style="{StaticResource searchTextbox}" Margin="27,193,686,0" Grid.Row="5" VerticalAlignment="Top" Height="35" Visibility="Hidden" />
+            <TextBox x:Name="c1" Style="{StaticResource searchTextbox}" Margin="-15,93,787,0" Grid.Row="3" Height="35" RenderTransformOrigin="0.571,0.964" Foreground="#FF2C2C2D" Grid.RowSpan="2" VerticalAlignment="Top" Visibility="Hidden" />
+            <TextBox x:Name="c3" Style="{StaticResource searchTextbox}" Margin="-15,22,787,0" Grid.Row="5" Height="35" RenderTransformOrigin="0.571,0.964" VerticalAlignment="Top" Foreground="#FF2C2C2D" Visibility="Hidden" />
+            <TextBox x:Name="c2" Style="{StaticResource searchTextbox}" Margin="-15,11,787,0" Grid.Row="4" Height="35" RenderTransformOrigin="0.571,0.964" VerticalAlignment="Top" Foreground="#FF2C2C2D" Grid.RowSpan="2" Visibility="Hidden" />
+            <TextBox x:Name="c4" Style="{StaticResource searchTextbox}" Margin="-15,67,787,0" Grid.Row="5" Height="35" RenderTransformOrigin="0.571,0.964" VerticalAlignment="Top" Foreground="#FF2C2C2D" Visibility="Hidden" />
+            <TextBox x:Name="c5" Style="{StaticResource searchTextbox}" Margin="-15,108,787,0" Grid.Row="5" Height="35" RenderTransformOrigin="0.571,0.964" VerticalAlignment="Top" Foreground="#FF2C2C2D" Visibility="Hidden" />
+            <TextBox x:Name="c6" Style="{StaticResource searchTextbox}" Margin="-15,149,787,0" Grid.Row="5" Height="35" RenderTransformOrigin="0.571,0.964" VerticalAlignment="Top" Foreground="#FF2C2C2D" Visibility="Hidden"/>
+            <TextBox x:Name="c7" Style="{StaticResource searchTextbox}" Margin="-15,192,787,0" Grid.Row="5" Height="33" RenderTransformOrigin="0.571,0.964" VerticalAlignment="Top" Visibility="Hidden" />
+
+            <TextBlock x:Name="cost" Margin="102,0,584,0" VerticalAlignment="Center" Grid.Row="3" IsHitTestVisible="False"
+                Grid.RowSpan="2"
+                Panel.ZIndex="1" Height="26" FontSize="16" FontFamily="Roya" Foreground="White" Visibility="Hidden" ><Run FlowDirection="RightToLeft" Language="fa-ir" Text="قیمت"/></TextBlock>
+            <TextBlock x:Name="countt" Margin="16,0,670,0" VerticalAlignment="Center" Grid.Row="3" IsHitTestVisible="False"
+                Grid.RowSpan="2"
+                Panel.ZIndex="1" Height="26" FontSize="16" FontFamily="Roya" Foreground="White" Visibility="Hidden" ><Run FlowDirection="RightToLeft" Language="fa-ir" Text="تعداد"/></TextBlock>
         </Grid>
 
     </Grid>
