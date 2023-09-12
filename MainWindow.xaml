@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodel="clr-namespace:DataGrid.ViewModel" xmlns:view="clr-namespace:DataGrid.View" mc:Ignorable="av" x:Class="DataGrid.MainWindow"
-        Height="720" Width="1080" WindowStartupLocation="CenterScreen" AllowsTransparency="True"
+        Height="900" Width="1500" WindowStartupLocation="CenterScreen" AllowsTransparency="True"
         Background="Transparent" WindowStyle="None">
     <Window.DataContext>
         <viewmodel:NavigationVM/>
@@ -21,7 +21,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Border Grid.Row="0" Background="#FF623ED0" CornerRadius="0 0 0 0" />
-            <ContentControl Grid.Column="1" x:Name="Pages"  Content="{Binding CurrentView}" Margin="0,42,10,0" Background="White"/>
+            <ContentControl Grid.Column="1" x:Name="Pages"  Content="{Binding CurrentView}" Background="White"/>
 
             <!--Left Menu-->
             <Grid>
@@ -38,7 +38,9 @@
                 <Border Grid.Row="1" Background="#623ED0" CornerRadius="0 0 0 0">
                     <DockPanel>
                         <!--Menu Logo-->
-                        <Border Width="80" Height="80" Padding="3" Background="White" CornerRadius="100" DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="20 -30 0 0"/>
+                        <Border Height="100" Padding="3" Background="White" CornerRadius="100" DockPanel.Dock="Top" Margin="20 -30 0 0" Width="125">
+                            <Image Source="/l .jpeg"  Margin="15,7,15,7"></Image>
+                        </Border>
 
                         <!--Menu Titles-->
                         <TextBlock Foreground="White" FontSize="22" FontWeight="SemiBold" DockPanel.Dock="Top" Margin="5 25 0 10" TextAlignment="Center"><Run FlowDirection="RightToLeft" Language="fa-ir" Text="ثبتــــــیــــار"/></TextBlock>
@@ -49,7 +51,7 @@
 
                         <!--Menu Buttons-->
                         <StackPanel DockPanel.Dock="Top" >
-                            <Button Style="{StaticResource menuButton}" Command="{Binding RegisterCommand}">
+                            <Button Style="{StaticResource menuButton}" Command="{Binding RegisterCommand}" Background="#7B5CD6" Foreground="White">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="HomeVariant" Style="{StaticResource menuButtonIcon}"/>
                                     <TextBlock FontFamily="Roya" FontSize="20"><Run FlowDirection="RightToLeft" Language="fa-ir" Text="ثبت داده ها"/></TextBlock>
@@ -63,12 +65,7 @@
                                 </StackPanel>
                             </Button>
 
-                            <Button Style="{StaticResource menuButton}" Background="#7B5CD6" Foreground="White">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="AccountMultipleOutline" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock><Run FlowDirection="RightToLeft" Language="fa-ir"/></TextBlock>
-                                </StackPanel>
-                            </Button>
+
 
                         </StackPanel>
 
