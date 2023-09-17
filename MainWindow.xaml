@@ -38,12 +38,9 @@
                 <Border Grid.Row="1" Background="#623ED0" CornerRadius="0 0 0 0">
                     <DockPanel>
                         <!--Menu Logo-->
-                        <Border Height="100" Padding="3" Background="White" CornerRadius="100" DockPanel.Dock="Top" Margin="20 -30 0 0" Width="125">
-                            <Image Source="/l .jpeg"  Margin="15,7,15,7"></Image>
-                        </Border>
 
                         <!--Menu Titles-->
-                        <TextBlock Foreground="White" FontSize="22" FontWeight="SemiBold" DockPanel.Dock="Top" Margin="5 25 0 10" TextAlignment="Center"><Run FlowDirection="RightToLeft" Language="fa-ir" Text="ثبتــــــیــــار"/></TextBlock>
+                        <TextBlock Foreground="White" FontSize="74" FontWeight="SemiBold" DockPanel.Dock="Top" Margin="5 25 0 10" TextAlignment="Center" FontFamily="IranNastaliq"><Run FlowDirection="RightToLeft" Language="fa-ir" Text="ثبتــــــیــــار"/></TextBlock>
                         <TextBlock Text="Register Form" Foreground="#D0BFFF" FontSize="10" FontWeight="SemiBold" DockPanel.Dock="Top" TextAlignment="Center"/>
 
                         <!--Menu Seprator-->

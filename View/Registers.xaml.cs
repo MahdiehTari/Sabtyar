@@ -23,6 +23,7 @@ namespace DataGrid.View
     /// </summary>
     public partial class Registers : UserControl
     {
+      
         int count = 0;
         string IRvalue;
         string Hesab;
@@ -30,16 +31,14 @@ namespace DataGrid.View
         string Services = "";
         string RegDate = "";
         string ExDate = "";
-        int Period = 0;
-        int Cost = 0;
+       
         string OprUser = "";
         string Description = "";
-        int FactorNum = 0;
+      
         int type = 0;
-        int OprType = 0;
-        string OprDate = "";
+       
         OleDbConnection conn = new OleDbConnection();
-        private object convert;
+      
 
         public Registers()
         {
@@ -62,30 +61,30 @@ namespace DataGrid.View
 
 
 
-        public int totalcost()
+        public Double totalcost()
         {
-            int tot;
+            Double tot;
             if (p1.Text != "" & c1.Text != "")
             {
-                tot = Convert.ToInt32(p1.Text) * Convert.ToInt32(c1.Text);
-                if (p3.Text != "" & c3.Text != "")
+                tot = Convert.ToDouble(p1.Text) * Convert.ToDouble(c1.Text);
+                if (p2.Text != "" & c2.Text != "")
                 {
-                    tot = tot + (Convert.ToInt32(p3.Text) * Convert.ToInt32(c3.Text));
-                    if (p2.Text != "" & c2.Text != "")
+                    tot = tot + (Convert.ToDouble(p2.Text) * Convert.ToDouble(c2.Text));
+                    if (p3.Text != "" & c3.Text != "")
                     {
-                        tot = tot + (Convert.ToInt32(p2.Text) * Convert.ToInt32(c2.Text));
+                        tot = tot + (Convert.ToDouble(p3.Text) * Convert.ToDouble(c3.Text));
                         if (p4.Text != "" & c4.Text != "")
                         {
-                            tot = tot + (Convert.ToInt32(p4.Text) * Convert.ToInt32(c4.Text));
+                            tot = tot + (Convert.ToDouble(p4.Text) * Convert.ToDouble(c4.Text));
                             if (p5.Text != "" & c5.Text != "")
                             {
-                                tot = tot + (Convert.ToInt32(p5.Text) * Convert.ToInt32(c5.Text));
+                                tot = tot + (Convert.ToDouble(p5.Text) * Convert.ToDouble(c5.Text));
                                 if (p6.Text != "" & c6.Text != "")
                                 {
-                                    tot = tot + (Convert.ToInt32(p6.Text) * Convert.ToInt32(c6.Text));
+                                    tot = tot + (Convert.ToDouble(p6.Text) * Convert.ToDouble(c6.Text));
                                     if (p7.Text != "" & c7.Text != "")
                                     {
-                                        tot = tot + (Convert.ToInt32(p7.Text) * Convert.ToInt32(c7.Text));
+                                        tot = tot + (Convert.ToDouble(p7.Text) * Convert.ToDouble(c7.Text));
                                     }
                                 }else { return tot; }
                             }else { return tot; }
@@ -155,24 +154,30 @@ namespace DataGrid.View
 
         private void service_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
             if (service.SelectedIndex == 0)
             {
+                type = 1;
                 template.Items.Clear();
                 template.Items.Add("پارس پک");
                 template.Items.Add("ایران سرور");
                 template.Items.Add("آذرآنلاین");
+                template.Items.Add("هتزنر");
             }
             if (service.SelectedIndex == 1)
             {
+                type = 6;
                 template.Items.Clear();
                 template.Items.Add("پارس آنلاین");
                 template.Items.Add("آسیاتک");
                 template.Items.Add("افرانت شیراز");
                 template.Items.Add("افرانت تهران");
                 template.Items.Add("رسپینا");
+                template.Items.Add("امین آسیا");
             }
             if (service.SelectedIndex == 2)
             {
+                type = 5;
                 template.Items.Clear();
                 template.Items.Add("مخابرات");
                 template.Items.Add("پارسیس");
@@ -180,7 +185,25 @@ namespace DataGrid.View
                 template.Items.Add("ایرانسل");
               
             }
-           
+            if (service.SelectedIndex == 3)
+            {
+                type =2;
+                template.Items.Clear();
+                template.Items.Add("پارس پک");
+                template.Items.Add("ایران سرور");
+
+            }
+            if (service.SelectedIndex == 4)
+            {
+                type = 10;
+                template.Items.Clear();
+                template.Items.Add("رشیدپور");
+                template.Items.Add("فناوران اطلاعات ");
+                template.Items.Add("خرید از چین ");
+
+            }
+
+
         }
 
         public string[] IR(string company)
@@ -210,6 +233,41 @@ namespace DataGrid.View
 
         private void template_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+            shab.Text = "";
+            اhes.Text = "";
+            oprator.Text = "";
+            description.Text = "";
+            product1.Text = "";
+            product2.Text = "";
+            product3.Text = "";
+            product4.Text = "";
+            product5.Text = "";
+            product6.Text = "";
+            product7.Text = "";
+            p1.Text = "";
+            p2.Text = "";
+            p3.Text = "";
+            p4.Text = "";
+            p5.Text = "";
+            p6.Text = "";
+            p7.Text = "";
+            c1.Text = "";
+            c2.Text = "";
+            c3.Text = "";
+            c4.Text = "";
+            c5.Text = "";
+            c6.Text = "";
+            c7.Text = "";
+
+
+
+
+
+
+
+
+
             if (service.SelectedIndex == 0)
             {
                 if (template.SelectedIndex == 0)
@@ -240,6 +298,17 @@ namespace DataGrid.View
 
 
                 }
+                if (template.SelectedIndex == 3)
+                {
+                    //azaronline
+                    company = "هتزنر";
+                    Services = "جهت استفاده کاربران - خرید از هتزنر";
+                    product1.Text = "هزینه سرور ";
+                    c1.Text = "1";
+
+
+
+                }
             }
             else if (service.SelectedIndex == 1)
             {
@@ -248,9 +317,16 @@ namespace DataGrid.View
 
                     company = "پارس آنلاین";
                     Services = "هزینه دیتاسنتر - خرید از پارس آنلاین";
-
-
-
+                    product1.Text = "Colocation-Full-Rack";
+                    product2.Text = "Power SupplyBundle";
+                    product3.Text = "مالیات";
+                    p1.Text = "433300000";
+                    p2.Text = "900000";
+                    p3.Text = "83178000";
+                    c1.Text = "2";
+                    c2.Text = "64";
+                    c3.Text = "1";
+                    count = 2;
 
                 }
                 if (template.SelectedIndex == 1)
@@ -258,6 +334,16 @@ namespace DataGrid.View
 
                     company = "آسیاتک";
                     Services = "هزینه دیتاسنتر - خرید از آسیاتک";
+                    product1.Text = "پارت یک";
+                    product2.Text = "پارت دو";
+                    product3.Text = "پارت سه";
+                    p1.Text = "970866594";
+                    p2.Text = "1083282726";
+                    p3.Text = "970866594";
+                    c1.Text = "1";
+                    c2.Text = "1";
+                    c3.Text = "1";
+                    count = 2;
 
 
 
@@ -267,8 +353,13 @@ namespace DataGrid.View
 
                     company = "افرانت";
                     Services = "هزینه دیتاسنتر شیراز - خرید از افرانت";
-
-
+                    product1.Text = "فضای رک اختصاصی";
+                    product2.Text = "مالیات";
+                    c1.Text = "1";
+                    c2.Text = "1";
+                    p1.Text = "40000000";
+                    p2.Text = "3600000";
+                    count = 2;
 
                 }
                 if (template.SelectedIndex == 3)
@@ -276,6 +367,19 @@ namespace DataGrid.View
 
                     company = "افرانت";
                     Services = "هزینه دیتاسنتر تهران - خرید ازافرانت";
+                    product1.Text = "فضای رک پیشرفته";
+                    product2.Text = "اینترنت اختصاصی";
+                    product3.Text = "آی پی ";
+                    product4.Text = "مالیات ";
+                    p1.Text = "630000000";
+                    p2.Text = "10000000";
+                    p3.Text = "700000"; 
+                    p4.Text = "57663000";
+                    c1.Text = "1";
+                    c2.Text = "1";
+                    c3.Text = "1";
+                    c4.Text = "1";
+                    count = 3;
 
 
                 }
@@ -284,10 +388,32 @@ namespace DataGrid.View
 
                     company = "رسپینا";
                     Services = "هزینه دیتاسنتر - خرید از رسپینا";
+                    product1.Text = "تامین فضای رک";
+                    product2.Text = "اینترنت اختصاصی";
+                    p1.Text = "3400000";
+                    p2.Text = "1600000";
 
                 }
-               
-                
+                if (template.SelectedIndex == 5)
+                {
+
+                    company = "امین آسیا";
+                    Services = "هزینه دیتاسنتر - خرید از داده های ابری امین آسیا";
+                    product1.Text = "اجاره رک";
+                    product2.Text = "اجاره آی پی";
+                    product3.Text = "مالیات";
+                    p1.Text = "10000000";
+                    p2.Text = "700000";
+                    p3.Text = "1843200";
+                    c1.Text = "1.60";
+                    c2.Text = "6.40";
+                    c3.Text = "1";
+                    count = 2;
+
+
+                }
+
+
             }
             else if (service.SelectedIndex == 2)
             {
@@ -319,7 +445,7 @@ namespace DataGrid.View
                 {
 
                     company = "پارسیس";
-                    Services = "جهت استفاده کاربران - خرید از ایران سرور";
+                    Services = "جهت استفاده کاربران - خرید از پارسیس";
 
 
 
@@ -328,7 +454,7 @@ namespace DataGrid.View
                 {
 
                     company = "شاتل";
-                    Services = "جهت استفاده کاربران - خرید ازآذر آذرآنلاین";
+                    Services = "جهت استفاده کاربران - خرید از شاتل";
 
 
 
@@ -343,6 +469,25 @@ namespace DataGrid.View
 
                 }
              }
+            else if (service.SelectedIndex == 4)
+            {
+                if (template.SelectedIndex == 0)
+                {
+
+                    company = "رشیدپور";
+                    Services = "خرید سخت افزار - خرید از رشیدپور";
+                  
+                 }
+                if (template.SelectedIndex == 1)
+                {
+
+                    company = "فناوران اطلاعات";
+                    Services = "خرید سخت افزار - خرید از فناوران اطلاعات";
+
+                }
+
+
+            }
             IRvalue = IR(company)[0];
             Hesab = IR(company)[1];
 
@@ -356,6 +501,8 @@ namespace DataGrid.View
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
+            produtshow.Text = "افزودن کالا";
+            backitem.Visibility = Visibility.Visible;
             back.Visibility = Visibility.Visible;
             service.Visibility = Visibility.Hidden;
             template.Visibility = Visibility.Hidden;
@@ -373,8 +520,8 @@ namespace DataGrid.View
                 case 1:
                     {
                         backitem.Visibility = Visibility.Visible;
-                      
-                        
+                        back.Visibility = Visibility.Visible;
+
                         product1.Visibility = Visibility.Visible;
                         p1.Visibility = Visibility.Visible;
                         c1.Visibility = Visibility.Visible;
@@ -383,6 +530,7 @@ namespace DataGrid.View
 
                 case 2:
                     {
+                        back.Visibility = Visibility.Visible;
                         product1.Visibility = Visibility.Visible;
                         p1.Visibility = Visibility.Visible;
                         c1.Visibility = Visibility.Visible;
@@ -393,6 +541,7 @@ namespace DataGrid.View
                     break;
                 case 3:
                     {
+                        back.Visibility = Visibility.Visible;
                         product1.Visibility = Visibility.Visible;
                         p1.Visibility = Visibility.Visible;
                         c1.Visibility = Visibility.Visible;
@@ -406,6 +555,7 @@ namespace DataGrid.View
                     break;
                 case 4:
                     {
+                        back.Visibility = Visibility.Visible;
                         product1.Visibility = Visibility.Visible;
                         p1.Visibility = Visibility.Visible;
                         c1.Visibility = Visibility.Visible;
@@ -422,6 +572,9 @@ namespace DataGrid.View
                     break;
                 case 5:
                     {
+
+
+                        back.Visibility = Visibility.Visible;
                         product1.Visibility = Visibility.Visible;
                         p1.Visibility = Visibility.Visible;
                         c1.Visibility = Visibility.Visible;
@@ -442,7 +595,7 @@ namespace DataGrid.View
 
                 case 6:
                     {
-
+                        back.Visibility = Visibility.Visible;
                         product1.Visibility = Visibility.Visible;
                         p1.Visibility = Visibility.Visible;
                         c1.Visibility = Visibility.Visible;
@@ -465,6 +618,7 @@ namespace DataGrid.View
                     break;
                 case 7:
                     {
+                        back.Visibility = Visibility.Visible;
                         product1.Visibility = Visibility.Visible;
                         p1.Visibility = Visibility.Visible;
                         c1.Visibility = Visibility.Visible;
@@ -549,11 +703,11 @@ namespace DataGrid.View
                 cmd.Parameters.Add("@Company", OleDbType.VarChar).Value = company;
                 cmd.Parameters.Add("@Services", OleDbType.VarChar).Value = Services;
                 cmd.Parameters.Add("@RegDate", OleDbType.VarChar).Value = finalldate();
-                cmd.Parameters.Add("@Cost", OleDbType.Integer).Value = totalcost();
+                cmd.Parameters.Add("@Cost", OleDbType.Integer).Value = Convert.ToInt32(totalcost());
                 cmd.Parameters.Add("@OprUser", OleDbType.VarChar).Value = oprator.Text;
                 cmd.Parameters.Add("@OprDate", OleDbType.VarChar).Value = OprDate;
                 cmd.Parameters.Add("@type", OleDbType.Integer).Value = type;
-                cmd.Parameters.Add("@Description", OleDbType.VarChar).Value = Description;
+                cmd.Parameters.Add("@Description", OleDbType.VarChar).Value = description.Text;
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("اطلاعات اضافه شد");
             }
@@ -566,6 +720,7 @@ namespace DataGrid.View
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             count--;
+            produtshow.Text = "اقلام";
             back.Visibility = Visibility.Hidden;
             service.Visibility = Visibility.Visible;
             template.Visibility = Visibility.Visible;
@@ -578,7 +733,6 @@ namespace DataGrid.View
             hinttxt_Copy4.Visibility = Visibility.Visible;
             hinttxt_Copy1.Visibility = Visibility.Visible;
             backitem.Visibility = Visibility.Hidden;
-          
             product1.Visibility = Visibility.Hidden;
             p1.Visibility = Visibility.Hidden;
             c1.Visibility = Visibility.Hidden;
