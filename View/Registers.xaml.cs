@@ -1,20 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.IO;
 using System.Diagnostics;
 using System.Globalization;
+using Dapplo.ActiveDirectory.Extensions;
 
 namespace DataGrid.View
 {
@@ -29,17 +21,9 @@ namespace DataGrid.View
         string Hesab;
         string company = "";
         string Services = "";
-        string RegDate = "";
-        string ExDate = "";
-       
-        string OprUser = "";
-        string Description = "";
-      
         int type = 0;
        
         OleDbConnection conn = new OleDbConnection();
-      
-
         public Registers()
         {
             conn.ConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\\192.168.1.62\FileServer\Network\Network-FinancialData\Registerr.mdb";
@@ -95,15 +79,7 @@ namespace DataGrid.View
             return 0;
 
         }
-
-
-
-
-
-
-
-
-            private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -135,11 +111,6 @@ namespace DataGrid.View
                 p.Start();
 
             }
-
-
-
-
-
 
             catch (Exception ex)
             {
@@ -224,16 +195,98 @@ namespace DataGrid.View
             conn.Close();
             return outpot;
 
-
-
-
         }
 
+        public void queryexe(string query)
+        {
+            OleDbCommand cmd = new OleDbCommand();
+            cmd.CommandText = query;
+            conn.Open();
+            cmd.Connection = conn;
+            cmd.ExecuteNonQueryAsync();
+            cmd.CommandType = CommandType.Text;
+            OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+            DataTable rows = new DataTable();
+            da.Fill(rows);
+            int count = rows.Rows.Count;
+            if (count > 0)
+            {
+                //listView1.Items.Clear();
+                Comp.Items.Clear();
 
+                for (int i = 0; i < count; i++)
+                {
+                    Comp.Items.Add(rows.Rows[i]["name"].ToString());
+                }
+            }
+            conn.Close();
+        }
+        public void queryexe1(int cost)
+        {
+            OleDbCommand cmd = new OleDbCommand();
+            cmd.CommandText = ("SELECT * from  Register WHERE Cost = " + cost + " AND OprUser =" + "'"+oprator.Text+"'");
+            conn.Open();
+            cmd.Connection = conn;
+            cmd.ExecuteNonQueryAsync();
+            cmd.CommandType = CommandType.Text;
+            OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+            DataTable rows = new DataTable();
+            da.Fill(rows);
+            int count = rows.Rows.Count;
+            if (count > 0)
+            {
+                if (MessageBox.Show("همچین مبلغی در یتابیس موجوداست، آیا داده ثبت شود؟", "توجه", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                {
+                    conn.Close();
+                }
+                else
+                {
+                    string OprDate = DateTime.Today.ToShortDateString();
+                    OleDbCommand cmd1 = new OleDbCommand("INSERT into Register (Company , Services, RegDate,  Cost , OprUser, OprDate , type , Description ) Values(@Company , @Services, @RegDate, @Cost , @OprUser ,@OprDate ,@type, @Description)");
+                    cmd1.Connection = conn;
+                    if (conn.State == ConnectionState.Open)
+                    {
+                        cmd1.Parameters.Add("@Company", OleDbType.VarChar).Value = company;
+                        cmd1.Parameters.Add("@Services", OleDbType.VarChar).Value = Services;
+                        cmd1.Parameters.Add("@RegDate", OleDbType.VarChar).Value = finalldate();
+                        cmd1.Parameters.Add("@Cost", OleDbType.Integer).Value = Convert.ToInt32(totalcost());
+                        cmd1.Parameters.Add("@OprUser", OleDbType.VarChar).Value = oprator.Text;
+                        cmd1.Parameters.Add("@OprDate", OleDbType.VarChar).Value = OprDate;
+                        cmd1.Parameters.Add("@type", OleDbType.Integer).Value = type;
+                        cmd1.Parameters.Add("@Description", OleDbType.VarChar).Value = description.Text;
+                        cmd1.ExecuteNonQuery();
+                        MessageBox.Show("اطلاعات اضافه شد","",MessageBoxButton.OK,MessageBoxImage.Information);
+                    }
+                }
+                conn.Close();
+            
+                //listView1.Items.Clear();
+              
+               
+            }
+            
+                
+        }
 
         private void template_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if (service.SelectedIndex == 0)
+            {
+                if (template.SelectedIndex == 0)
+                {
+                    queryexe("SELECT name FROM Services WHERE panel = 'پارس پک' AND Type =1");
+                                   }
+                if (template.SelectedIndex == 1)
+                {
+                    queryexe("SELECT name FROM Services WHERE panel = 'ایران سرور' AND Type =1");
+                }
+                if (template.SelectedIndex == 2)
+                {
+                    queryexe("SELECT name FROM Services WHERE panel = 'آذرآنلاین' AND Type =1");
+                }
+               
+            }
+        
             shab.Text = "";
             اhes.Text = "";
             oprator.Text = "";
@@ -259,14 +312,6 @@ namespace DataGrid.View
             c5.Text = "";
             c6.Text = "";
             c7.Text = "";
-
-
-
-
-
-
-
-
 
             if (service.SelectedIndex == 0)
             {
@@ -314,7 +359,7 @@ namespace DataGrid.View
             {
                 if (template.SelectedIndex == 0)
                 {
-
+                    oprator.Text = "وجیهه نباتیان";
                     company = "پارس آنلاین";
                     Services = "هزینه دیتاسنتر - خرید از پارس آنلاین";
                     product1.Text = "Colocation-Full-Rack";
@@ -331,7 +376,7 @@ namespace DataGrid.View
                 }
                 if (template.SelectedIndex == 1)
                 {
-
+                    oprator.Text = "محمدرضا زارعی";
                     company = "آسیاتک";
                     Services = "هزینه دیتاسنتر - خرید از آسیاتک";
                     product1.Text = "پارت یک";
@@ -350,7 +395,7 @@ namespace DataGrid.View
                 }
                 if (template.SelectedIndex == 2)
                 {
-
+                    oprator.Text = "محمدرضا زارعی";
                     company = "افرانت";
                     Services = "هزینه دیتاسنتر شیراز - خرید از افرانت";
                     product1.Text = "فضای رک اختصاصی";
@@ -364,7 +409,7 @@ namespace DataGrid.View
                 }
                 if (template.SelectedIndex == 3)
                 {
-
+                    oprator.Text = "محمدرضا زارعی";
                     company = "افرانت";
                     Services = "هزینه دیتاسنتر تهران - خرید ازافرانت";
                     product1.Text = "فضای رک پیشرفته";
@@ -385,7 +430,7 @@ namespace DataGrid.View
                 }
                 if (template.SelectedIndex == 4)
                 {
-
+                    oprator.Text = "وجیهه نباتیان";
                     company = "رسپینا";
                     Services = "هزینه دیتاسنتر - خرید از رسپینا";
                     product1.Text = "تامین فضای رک";
@@ -396,7 +441,7 @@ namespace DataGrid.View
                 }
                 if (template.SelectedIndex == 5)
                 {
-
+                    oprator.Text = "علیرضا تجلی";
                     company = "امین آسیا";
                     Services = "هزینه دیتاسنتر - خرید از داده های ابری امین آسیا";
                     product1.Text = "اجاره رک";
@@ -419,7 +464,7 @@ namespace DataGrid.View
             {
                 if (template.SelectedIndex == 0)
                 {
-
+                    oprator.Text = "محمدرضا زارعی";
                     company = "مخابرات";
                     Services = "هزینه اینترنت - خرید مخابرات";
                     product1.Text = "خط اینترنت اختصاصی با پهنای باند 30 مگ پردیس یک";
@@ -443,7 +488,7 @@ namespace DataGrid.View
                 }
                 if (template.SelectedIndex == 1)
                 {
-
+                    oprator.Text = "مصطفی شاهچراغیان";
                     company = "پارسیس";
                     Services = "جهت استفاده کاربران - خرید از پارسیس";
 
@@ -452,7 +497,7 @@ namespace DataGrid.View
                 }
                 if (template.SelectedIndex == 2)
                 {
-
+                    oprator.Text = "محمدرضا زارعی";
                     company = "شاتل";
                     Services = "جهت استفاده کاربران - خرید از شاتل";
 
@@ -463,7 +508,7 @@ namespace DataGrid.View
                 {
 
                     company = "ایرانسل";
-                    Services = "جهت استفاده کاربران - خرید ازآذر آذرآنلاین";
+                    Services = "جهت استفاده کاربران - خرید از ایرانسل";
 
 
 
@@ -473,14 +518,14 @@ namespace DataGrid.View
             {
                 if (template.SelectedIndex == 0)
                 {
-
+                    oprator.Text = "مصطفی شاهچراغیان";
                     company = "رشیدپور";
                     Services = "خرید سخت افزار - خرید از رشیدپور";
                   
                  }
                 if (template.SelectedIndex == 1)
                 {
-
+                    oprator.Text = "علی نورانی";
                     company = "فناوران اطلاعات";
                     Services = "خرید سخت افزار - خرید از فناوران اطلاعات";
 
@@ -501,6 +546,7 @@ namespace DataGrid.View
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
+            Comp.Visibility = Visibility.Hidden;
             produtshow.Text = "افزودن کالا";
             backitem.Visibility = Visibility.Visible;
             back.Visibility = Visibility.Visible;
@@ -693,24 +739,9 @@ namespace DataGrid.View
 
         private void Button_Click1(object sender, RoutedEventArgs e)
         {
-            string OprDate = DateTime.Today.ToShortDateString();
-            OleDbCommand cmd = new OleDbCommand("INSERT into Register (Company , Services, RegDate,  Cost , OprUser, OprDate , type , Description ) Values(@Company , @Services, @RegDate, @Cost , @OprUser ,@OprDate ,@type, @Description)");
-            cmd.Connection = conn;
-
-            conn.Open();
-            if (conn.State == ConnectionState.Open)
-            {
-                cmd.Parameters.Add("@Company", OleDbType.VarChar).Value = company;
-                cmd.Parameters.Add("@Services", OleDbType.VarChar).Value = Services;
-                cmd.Parameters.Add("@RegDate", OleDbType.VarChar).Value = finalldate();
-                cmd.Parameters.Add("@Cost", OleDbType.Integer).Value = Convert.ToInt32(totalcost());
-                cmd.Parameters.Add("@OprUser", OleDbType.VarChar).Value = oprator.Text;
-                cmd.Parameters.Add("@OprDate", OleDbType.VarChar).Value = OprDate;
-                cmd.Parameters.Add("@type", OleDbType.Integer).Value = type;
-                cmd.Parameters.Add("@Description", OleDbType.VarChar).Value = description.Text;
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("اطلاعات اضافه شد");
-            }
+            queryexe1(Convert.ToInt32(totalcost()));
+            
+            
         }
 
         private void product1_TextChanged(object sender, TextChangedEventArgs e)
@@ -720,6 +751,7 @@ namespace DataGrid.View
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             count--;
+            Comp.Visibility = Visibility.Visible;
             produtshow.Text = "اقلام";
             back.Visibility = Visibility.Hidden;
             service.Visibility = Visibility.Visible;
@@ -754,6 +786,68 @@ namespace DataGrid.View
             product7.Visibility = Visibility.Hidden;
             p7.Visibility = Visibility.Hidden;
             c7.Visibility = Visibility.Hidden;
+        }
+
+        private void template_SelectionChanged1(object sender, SelectionChangedEventArgs e)
+        {
+
+           
+            if(template.SelectedIndex == 0)
+            {
+               
+                if (Comp.SelectedIndex == 0)
+                {
+                    product1.Text = Comp.SelectedValue.ToString();
+                    oprator.Text = "علیرضا تجلی";
+                }
+                if (Comp.SelectedIndex == 1)
+                {
+                    product1.Text = Comp.SelectedValue.ToString();
+                    oprator.Text = "رضا محمودی";
+                }
+            }
+            if (template.SelectedIndex == 1)
+
+            {
+              
+                if (Comp.SelectedIndex == 0)
+                {
+                    product1.Text = Comp.SelectedValue.ToString();
+                    oprator.Text = "رضا محمودی";
+                }
+                if (Comp.SelectedIndex == 1)
+                {
+                    product1.Text = Comp.SelectedValue.ToString();
+                    oprator.Text = "محسن مختاری";
+                }
+            }
+            if (template.SelectedIndex == 2)
+
+            {
+
+                if (Comp.SelectedIndex == 0)
+                {
+                    product1.Text = Comp.SelectedValue.ToString();
+                    oprator.Text = "عماد فتحی";
+                }
+                if (Comp.SelectedIndex == 1)
+                {
+                    product1.Text = Comp.SelectedValue.ToString();
+                    oprator.Text = "حامد موسایی";
+                }
+            }
+            if (template.SelectedIndex == 3)
+
+            {
+
+                if (Comp.SelectedIndex == 0)
+                {
+                    product1.Text = Comp.SelectedValue.ToString();
+                    oprator.Text = "علی جاویدی";
+                }
+                
+            }
+
         }
     }
    

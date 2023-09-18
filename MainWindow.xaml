@@ -40,7 +40,7 @@
                         <!--Menu Logo-->
 
                         <!--Menu Titles-->
-                        <TextBlock Foreground="White" FontSize="74" FontWeight="SemiBold" DockPanel.Dock="Top" Margin="5 25 0 10" TextAlignment="Center" FontFamily="IranNastaliq"><Run FlowDirection="RightToLeft" Language="fa-ir" Text="ثبتــــــیــــار"/></TextBlock>
+                        <TextBlock Foreground="White" FontSize="30" FontWeight="SemiBold" DockPanel.Dock="Top" Margin="5 25 0 10" TextAlignment="Center" FontFamily="2  Badr" Width="155"><Run FlowDirection="RightToLeft" Language="fa-ir" Text="ثبتــــــیــــار"/></TextBlock>
                         <TextBlock Text="Register Form" Foreground="#D0BFFF" FontSize="10" FontWeight="SemiBold" DockPanel.Dock="Top" TextAlignment="Center"/>
 
                         <!--Menu Seprator-->
@@ -69,7 +69,7 @@
                         <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Margin="15 0 15 20" Click="Button_Click_1">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
-                                <TextBlock Text="Exite"/>
+                                <TextBlock Text="خروج"/>
                             </StackPanel>
                         </Button>
 

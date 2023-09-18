@@ -31,9 +31,7 @@ namespace DataGrid
             {
                 if (IsMaximize)
                 {
-                    this.WindowState = WindowState.Normal;
-                    this.Width = 1080;
-                    this.Height = 720;
+                    
 
                     IsMaximize = false;
                 }
@@ -53,58 +51,18 @@ namespace DataGrid
                 this.DragMove();
             }
         }
-        private string Runcript(string script)
-        {
-              
-                Runspace runspace = RunspaceFactory.CreateRunspace();
-                runspace.Open();
-           
-                Pipeline pipeline = runspace.CreatePipeline();
-            
-                pipeline.Commands.AddScript(script);
-                pipeline.Commands.Add("Out-String");
-
-                Collection<PSObject> results = pipeline.Invoke();
-                runspace.Close();   
-                StringBuilder sb = new StringBuilder(); 
-                foreach (PSObject obj in results)
-                {
-                    sb.AppendLine(obj.ToString());  
-                }
-                return sb.ToString();
-           
-        }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-          
-            using (PowerShell powerShell = PowerShell.Create())
-            {
-                PowerShell powershell = PowerShell.Create();
-                using ( Runspace runspace = RunspaceFactory.CreateRunspace())
-                {
-                    runspace.Open();
-                    powershell.Runspace = runspace;
-                    System.IO.StreamReader sr = new System.IO.StreamReader("D:/getusertest.ps1");
-                    powershell.AddScript(sr.ReadToEnd());
-                    var results = powershell.Invoke();
-                    if (powershell.Streams.Error.Count > 0)
-                    {
-                        // error records were written to the error stream.
-                        // do something with the items found.
-                    }
-                }
-                using (PowerShell PowerShellInstance = PowerShell.Create())
-                {
-                    PowerShellInstance.AddScript("D:/getusertest.ps1");
-                    PowerShellInstance.Invoke();
-                }
-            }
-        }
+       
+        
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-           Close();
+            if (MessageBox.Show("آیا از ثبت اطلاعات مطمن هستید و میخواهید خارج شوید؟", "خروج", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.No)
+            {
+            }
+            else
+            {
+                Close();
+            }
         }
 
         private void txtOut_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
