@@ -11,6 +11,7 @@ using System.Windows.Media;
 
 namespace DataGrid
 {
+   
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -31,9 +32,9 @@ namespace DataGrid
             {
                 if (IsMaximize)
                 {
-                    
-
+                    this.WindowState = WindowState.Normal;
                     IsMaximize = false;
+
                 }
                 else
                 {

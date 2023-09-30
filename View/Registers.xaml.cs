@@ -125,7 +125,8 @@ namespace DataGrid.View
 
         private void service_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            lblcomp.Visibility = Visibility.Visible;
+            template.Visibility = Visibility.Visible;
             if (service.SelectedIndex == 0)
             {
                 type = 1;
@@ -134,6 +135,11 @@ namespace DataGrid.View
                 template.Items.Add("ایران سرور");
                 template.Items.Add("آذرآنلاین");
                 template.Items.Add("هتزنر");
+                oprator.Text = "";
+                اhes.Text = "";
+                shab.Text = "";
+                description.Text = "";
+
             }
             if (service.SelectedIndex == 1)
             {
@@ -145,6 +151,11 @@ namespace DataGrid.View
                 template.Items.Add("افرانت تهران");
                 template.Items.Add("رسپینا");
                 template.Items.Add("امین آسیا");
+                Comp.Visibility = Visibility.Hidden;
+                oprator.Text = "";
+                اhes.Text = "";
+                shab.Text = "";
+                description.Text = "";
             }
             if (service.SelectedIndex == 2)
             {
@@ -153,8 +164,15 @@ namespace DataGrid.View
                 template.Items.Add("مخابرات");
                 template.Items.Add("پارسیس");
                 template.Items.Add("شاتل");
+               
+                template.Items.Add("پارس");
                 template.Items.Add("ایرانسل");
-              
+                Comp.Visibility = Visibility.Hidden;
+                oprator.Text = "";
+                اhes.Text = "";
+                shab.Text = "";
+                description.Text = "";
+
             }
             if (service.SelectedIndex == 3)
             {
@@ -162,6 +180,10 @@ namespace DataGrid.View
                 template.Items.Clear();
                 template.Items.Add("پارس پک");
                 template.Items.Add("ایران سرور");
+                oprator.Text = "";
+                اhes.Text = "";
+                shab.Text = "";
+                description.Text = "";
 
             }
             if (service.SelectedIndex == 4)
@@ -170,7 +192,22 @@ namespace DataGrid.View
                 template.Items.Clear();
                 template.Items.Add("رشیدپور");
                 template.Items.Add("فناوران اطلاعات ");
-                template.Items.Add("خرید از چین ");
+                template.Items.Add("نور توس");
+                oprator.Text = "";
+                اhes.Text = "";
+                shab.Text = "";
+                description.Text = "";
+                Comp.Visibility = Visibility.Hidden;
+
+            }
+            if (service.SelectedIndex == 5)
+            {
+
+                oprator.Text = "";
+                اhes.Text = "";
+                shab.Text = "";
+                description.Text = "";
+
 
             }
 
@@ -184,11 +221,9 @@ namespace DataGrid.View
             conn.Open();
             OleDbCommand cmd = new OleDbCommand("SELECT sheba FROM bank WHERE company = " + "'" + company + "'");
             OleDbCommand cmd2 = new OleDbCommand("SELECT hesab FROM bank WHERE company = " + "'" + company + "'");
-            cmd.Connection = conn;
-          
+            cmd.Connection = conn; 
             cmd.CommandType = CommandType.Text;
-            cmd2.Connection = conn;
-           
+            cmd2.Connection = conn;     
             cmd2.CommandType = CommandType.Text;
             outpot[0] = cmd.ExecuteScalar().ToString();
             outpot[1] = cmd2.ExecuteScalar().ToString();
@@ -284,7 +319,7 @@ namespace DataGrid.View
                 {
                     queryexe("SELECT name FROM Services WHERE panel = 'آذرآنلاین' AND Type =1");
                 }
-               
+                Comp.Visibility = Visibility.Visible;
             }
         
             shab.Text = "";
@@ -507,13 +542,23 @@ namespace DataGrid.View
                 if (template.SelectedIndex == 3)
                 {
 
+                    company = "پارس";
+                    Services = "جهت استفاده کاربران - خرید از پارس";
+
+
+
+                }
+                if (template.SelectedIndex == 4)
+                {
+
                     company = "ایرانسل";
                     Services = "جهت استفاده کاربران - خرید از ایرانسل";
 
 
 
                 }
-             }
+               
+            }
             else if (service.SelectedIndex == 4)
             {
                 if (template.SelectedIndex == 0)
@@ -528,6 +573,13 @@ namespace DataGrid.View
                     oprator.Text = "علی نورانی";
                     company = "فناوران اطلاعات";
                     Services = "خرید سخت افزار - خرید از فناوران اطلاعات";
+
+                }
+                if (template.SelectedIndex == 2)
+                {
+                    oprator.Text = "مصطفی شاهچراغیان";
+                    company = "نور توس";
+                    Services = "خرید سخت افزار - خرید از نور توس";
 
                 }
 
@@ -546,6 +598,7 @@ namespace DataGrid.View
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
+            servicesss.Visibility = Visibility.Hidden;
             Comp.Visibility = Visibility.Hidden;
             produtshow.Text = "افزودن کالا";
             backitem.Visibility = Visibility.Visible;
@@ -751,6 +804,7 @@ namespace DataGrid.View
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             count--;
+            servicesss.Visibility = Visibility.Visible;
             Comp.Visibility = Visibility.Visible;
             produtshow.Text = "اقلام";
             back.Visibility = Visibility.Hidden;
